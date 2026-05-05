@@ -1,0 +1,14 @@
+node_modules/
+npm-debug.log*
+coverage/
+.env
+.env.*
+**/.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+*.tfplan
+tfplan
+.DS_Store
+.vscode/
+.idea/

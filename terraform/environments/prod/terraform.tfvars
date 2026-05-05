@@ -1,0 +1,11 @@
+project       = "devops-challenge"
+environment   = "prod"
+aws_region    = "us-east-1"
+vpc_cidr      = "10.0.0.0/16"
+azs           = ["us-east-1a", "us-east-1b"]
+single_nat    = true
+task_cpu      = 256
+task_memory   = 512
+desired_count = 2
+min_capacity  = 1
+max_capacity  = 4
