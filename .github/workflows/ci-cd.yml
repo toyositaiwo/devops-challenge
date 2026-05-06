@@ -15,9 +15,9 @@ env:
 
 jobs:
 
-  # ────────────────────────────────────────────────
-  # JOB 1 — Test
-  # ────────────────────────────────────────────────
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # JOB 1 â€” Test
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -49,10 +49,10 @@ jobs:
           path: ${{ env.APP_DIR }}/coverage/
           retention-days: 7
 
-  # ────────────────────────────────────────────────
-  # JOB 2 — Build & Push Docker image to ECR
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # JOB 2 â€” Build & Push Docker image to ECR
   # Runs only on push to main
-  # ────────────────────────────────────────────────
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   build-push:
     name: Build & Push Image
     runs-on: ubuntu-latest
@@ -84,7 +84,7 @@ jobs:
           SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
           IMAGE_TAG="${{ github.run_number }}-${SHORT_SHA}"
           echo "image_tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
-          echo "Image tag → ${IMAGE_TAG}"
+          echo "Image tag â†’ ${IMAGE_TAG}"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -110,9 +110,9 @@ jobs:
           ignore-unfixed: true
           severity:       CRITICAL,HIGH
 
-  # ────────────────────────────────────────────────
-  # JOB 3 — Terraform Plan (PRs only)
-  # ────────────────────────────────────────────────
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # JOB 3 â€” Terraform Plan (PRs only)
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   tf-plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
@@ -133,7 +133,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: '1.7.0'
+          terraform_version: '1.5.7'
 
       - name: Terraform Init
         working-directory: ${{ env.TF_DIR }}
@@ -158,13 +158,13 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `#### Terraform Plan 📋 \`${{ steps.plan.outcome }}\`
+              body: `#### Terraform Plan ðŸ“‹ \`${{ steps.plan.outcome }}\`
               *Triggered by @${{ github.actor }}*`
             })
 
-  # ────────────────────────────────────────────────
-  # JOB 4 — Terraform Apply
-  # ────────────────────────────────────────────────
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # JOB 4 â€” Terraform Apply
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   tf-apply:
     name: Terraform Apply
     runs-on: ubuntu-latest
@@ -186,7 +186,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: '1.7.0'
+          terraform_version: '1.5.7'
 
       - name: Terraform Init
         working-directory: ${{ env.TF_DIR }}
@@ -200,9 +200,9 @@ jobs:
             -auto-approve \
             -no-color
 
-  # ────────────────────────────────────────────────
-  # JOB 5 — Deploy to ECS
-  # ────────────────────────────────────────────────
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  # JOB 5 â€” Deploy to ECS
+  # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   deploy:
     name: Deploy to ECS
     runs-on: ubuntu-latest
@@ -262,7 +262,7 @@ jobs:
 
           for i in 1 2 3 4 5; do
             STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://${ALB_DNS}/health || echo "000")
-            echo "Attempt $i — HTTP $STATUS"
+            echo "Attempt $i â€” HTTP $STATUS"
             [ "$STATUS" = "200" ] && break
             sleep 15
           done
