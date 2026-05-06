@@ -8,14 +8,13 @@ terraform {
     }
   }
 
-  # Uncomment this block AFTER you create the S3 bucket in Phase 8
-  # backend "s3" {
-  #   bucket         = "devops-challenge-tf-state"
-  #   key            = "prod/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   encrypt        = true
-  #   dynamodb_table = "terraform-locks"
-  # }
+  backend "s3" {
+    bucket       = "devops-challenge-tf-state-137068226798"
+    key          = "prod/terraform.tfstate"
+    region       = "us-east-1"
+    encrypt      = true
+    use_lockfile = true
+  }
 }
 
 provider "aws" {
